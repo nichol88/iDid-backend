@@ -25,4 +25,9 @@ class API::V1::SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    session.clear
+    render json: {server_message: 'You Logged Out!'}
+  end
+
 end
