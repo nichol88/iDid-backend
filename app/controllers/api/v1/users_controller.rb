@@ -9,6 +9,15 @@ class API::V1::UsersController < ApplicationController
     end
   end
 
+  def create
+    user = User.create(user_params)
+    if user.persisted?
+      render json: user, except: :password_digest
+    else
+      render json: {server_message: 'User creation failed!'}
+    end
+  end
+
   private
 
   def user_params

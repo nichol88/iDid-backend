@@ -7,9 +7,9 @@ class API::V1::SessionsController < ApplicationController
 
   def get_current_user
     if logged_in?
-      render json: current_user
+      render json: current_user, except: :password_digest
     else
-      render json: {error: 'Not logged in!'}
+      render json: {server_message: 'Not logged in!'}
     end
   end
 
@@ -19,9 +19,9 @@ class API::V1::SessionsController < ApplicationController
       #byebug
       session[:user_id] = user.id
       # redirect_to user_path(user)
-      render json: user
+      render json: user, except: :password_digest
     else
-      render json: {error: 'Incorrect email/password combination!'}
+      render json: {server_message: 'Incorrect email/password combination!'}
     end
   end
 
