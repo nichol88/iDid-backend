@@ -14,6 +14,7 @@ class API::V1::SessionsController < ApplicationController
   end
 
   def get_state
+    
     if logged_in?
       render json: session[:state]
     else
@@ -23,7 +24,10 @@ class API::V1::SessionsController < ApplicationController
 
   def set_state
     if logged_in?
-      session[:state] = {value: params[:session][:value]}
+      session[:state] = params[:session][:_json]
+      render json: session[:state]
+    else
+      render json: {server_message: 'Not logged in!'}
     end
   end
 
