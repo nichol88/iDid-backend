@@ -1,12 +1,11 @@
 class API::V1::ActionsController < ApplicationController
 
   def index
-    
-    if params[:user_id]
-      actions = Action.where(user_id: params[:user_id])
+    if params[:id]
+      actions = Action.where(user_id: params[:id])
       render json: actions
     else
-      redirect_to login_path
+      render json: {server_message: 'Could not get actions for user!'}
     end
 
   end
