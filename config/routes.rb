@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'api/v1/current_user' => 'api/v1/sessions#get_current_user'
   delete 'api/v1/logout' => 'api/v1/sessions#destroy'
 
+  get 'state' => 'api/v1/sessions#get_state'
+  post 'state' => 'api/v1/sessions#set_state'
   # root to: '/api/v1/'
 
   namespace :api do
