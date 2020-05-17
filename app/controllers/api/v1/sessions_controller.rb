@@ -14,7 +14,7 @@ class API::V1::SessionsController < ApplicationController
   end
 
   def get_state
-    
+
     if logged_in?
       render json: session[:state]
     else
