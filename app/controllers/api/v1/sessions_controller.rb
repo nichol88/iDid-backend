@@ -1,5 +1,5 @@
 class API::V1::SessionsController < ApplicationController
-
+  before_action :redirect_if_not_logged_in, only: [:get_current_user, :get_state, :set_state]
   # log in
   def new
     render json: {hi: 'yes'}
@@ -8,17 +8,12 @@ class API::V1::SessionsController < ApplicationController
   def get_current_user
     if logged_in?
       render json: current_user, except: :password_digest
-    else
-      render json: {server_message: 'Not logged in!'}
     end
   end
 
   def get_state
-
     if logged_in?
       render json: session[:state]
-    else
-      render json: {server_message: 'Not logged in!'}
     end
   end
 
@@ -26,17 +21,13 @@ class API::V1::SessionsController < ApplicationController
     if logged_in?
       session[:state] = params[:session][:_json]
       render json: session[:state]
-    else
-      render json: {server_message: 'Not logged in!'}
     end
   end
 
   def login
     user = User.find_by(email: params[:session][:email])
     if user && user.authenticate(params[:session][:password])
-      #byebug
       session[:user_id] = user.id
-      # redirect_to user_path(user)
       render json: user, except: :password_digest
     else
       render json: {server_message: 'Incorrect email/password combination!'}
@@ -44,6 +35,7 @@ class API::V1::SessionsController < ApplicationController
   end
 
   def destroy
+    # cookies.clear
     session.clear
     render json: {server_message: 'You Logged Out!'}
   end
