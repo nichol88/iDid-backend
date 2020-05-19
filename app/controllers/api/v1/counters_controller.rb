@@ -13,7 +13,8 @@ class API::V1::CountersController < ApplicationController
     if counter.save
       render json: Counter.all
     else
-      render json: {server_message: "Could not create counter! #{counter.errors.full_messages.to_sentence}"}
+      alert('Counter could not be saved. Perhaps it already exists?')
+      render json: Counter.all
     end
   end
 
