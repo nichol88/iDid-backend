@@ -1,15 +1,17 @@
 class API::V1::UsersController < ApplicationController
 
+  before_action :redirect_if_not_logged_in, except: :create
+
   def index
-    byebug
+    # byebug
   end
 
   def show
     user = User.find_by(id: params[:id])
-    if logged_in? && user && user.id === current_user.id
+    if user && user.id === current_user.id
       render json: user, except: :password_digest
     else
-      render json: {error: 'Not logged in'}
+      render json: {server_message: 'Not logged in! (users#show)'}
     end
   end
 

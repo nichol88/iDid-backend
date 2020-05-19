@@ -11,8 +11,13 @@ class ApplicationController < ActionController::API
 
   def redirect_if_not_logged_in
     if !logged_in?
-      render json: {server_message: 'Not logged in!'}
-      # redirect_to '/api/v3/'
+      render json: {
+        server_message: {
+          message: "Not logged in!",
+          controller: self
+        }
+      }
+      puts 'Not logged in!'
     end
   end
 end
