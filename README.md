@@ -1,24 +1,17 @@
-# README
+# iDid API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Backend API for my React application found here: https://github.com/nichol88/iDid-frontend
 
-Things you may want to cover:
+# Installation
 
-* Ruby version
+Download the repo, then run `rails s` to initialize the server. Default port is 3001.
 
-* System dependencies
+# Routes
 
-* Configuration
+## Public
 
-* Database creation
+`/counters` - lists all the user-created counters that are able to be counted
 
-* Database initialization
+## Private
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+`/users/:id/actions` - lists all action entries for given user
