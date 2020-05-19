@@ -6,7 +6,6 @@ Rails.application.routes.draw do
 
   get 'api/v1/state' => 'api/v1/sessions#get_state'
   post 'api/v1/state' => 'api/v1/sessions#set_state'
-  # root to: '/api/v1/'
 
   get '/api/v1/users/:id/actions' => 'api/v1/actions#index'
 
