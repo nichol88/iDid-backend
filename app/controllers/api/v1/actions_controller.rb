@@ -13,19 +13,16 @@ class API::V1::ActionsController < ApplicationController
   end
 
   def create
-
     action = Action.new(action_params)
-
-    counter = Counter.find_by(name: params[:name])
-
+    counter = Counter.find_by(id: params[:counter_id])
     if counter
         action.counter_id = counter.id
+        action.name = counter.name
     end
-
     if action.save
       render json: action
     else
-      render json: {error: 'Unable to create Action!'}
+      render json: {server_message: 'Unable to create Action!'}
     end
 
   end
@@ -33,7 +30,7 @@ class API::V1::ActionsController < ApplicationController
   private
 
   def action_params
-    params.permit(:reps, :user_id, :name)
+    params.permit(:reps, :user_id, :name, :counter_id)
   end
 
 end

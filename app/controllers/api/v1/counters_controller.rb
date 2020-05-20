@@ -13,7 +13,7 @@ class API::V1::CountersController < ApplicationController
     if counter.save
       render json: Counter.all
     else
-      alert('Counter could not be saved. Perhaps it already exists?')
+      # alert('Counter could not be saved. Perhaps it already exists?')
       render json: Counter.all
     end
   end
