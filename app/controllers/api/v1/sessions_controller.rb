@@ -1,9 +1,4 @@
 class API::V1::SessionsController < ApplicationController
-  # before_action :redirect_if_not_logged_in, onl y: [:get_state, :set_state]
-  # log in
-  def new
-    render json: {hi: 'yes'}
-  end
 
   def get_current_user
       render json: current_user, except: :password_digest
@@ -14,7 +9,6 @@ class API::V1::SessionsController < ApplicationController
   end
 
   def set_state
-    
     session[:state] = params[:session][:_json]
     render json: session[:state]
   end
@@ -30,7 +24,6 @@ class API::V1::SessionsController < ApplicationController
   end
 
   def destroy
-    # cookies.clear
     session.clear
     render json: {server_message: 'You Logged Out!'}
   end
