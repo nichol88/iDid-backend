@@ -30,7 +30,7 @@ class API::V1::ActionsController < ApplicationController
   private
 
   def action_params
-    params.permit(:reps, :user_id, :name, :counter_id, :weight, :weight_unit)
+    params.permit(:reps, :user_id, :name, :counter_id, :weight, :weight_unit, :time_unit)
   end
 
 end
