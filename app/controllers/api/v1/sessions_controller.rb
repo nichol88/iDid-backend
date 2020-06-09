@@ -14,6 +14,7 @@ class API::V1::SessionsController < ApplicationController
   end
 
   def login
+    params[:session][:email] = params[:session][:email].downcase
     user = User.find_by(email: params[:session][:email])
     if user && user.authenticate(params[:session][:password])
       session[:user_id] = user.id

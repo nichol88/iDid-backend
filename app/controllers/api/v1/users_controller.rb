@@ -12,6 +12,7 @@ class API::V1::UsersController < ApplicationController
   end
 
   def create
+    user_params[:email] = user_params[:email].downcase
     user = User.create(user_params)
     if user.persisted?
       render json: user, except: :password_digest
