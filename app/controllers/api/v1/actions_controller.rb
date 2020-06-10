@@ -27,6 +27,10 @@ class API::V1::ActionsController < ApplicationController
 
   end
 
+  def leaders
+    render json: User.top_all_time
+  end
+
   private
 
   def action_params
