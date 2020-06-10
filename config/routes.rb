@@ -20,6 +20,8 @@ Rails.application.routes.draw do
         resources :actions
       end
 
+      get 'leaders' => 'actions#leaders'
+
     end
   end
 end
