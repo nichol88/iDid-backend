@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_08_231142) do
+ActiveRecord::Schema.define(version: 2020_06_09_234756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,11 +22,9 @@ ActiveRecord::Schema.define(version: 2020_06_08_231142) do
     t.integer "reps"
     t.float "weight"
     t.string "weight_unit"
-    t.integer "duration"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
-    t.integer "time_duration"
     t.string "time_unit"
   end
 
