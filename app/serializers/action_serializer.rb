@@ -14,7 +14,7 @@ class ActionSerializer < ActiveModel::Serializer
   attribute :weight, if: :is_weighted?
   attribute :weight_unit, if: :is_weighted?
 
-  attribute :time_duration, if: :is_timed?
+  # attribute :time_duration, if: :is_timed?
   attribute :time_unit, if: :is_timed?
 
   def is_timed?
