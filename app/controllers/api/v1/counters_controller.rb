@@ -5,12 +5,8 @@ class API::V1::CountersController < ApplicationController
   end
 
   def create
-    counter = Counter.create(name: params[:counterFormData][:name], kind: 'default')
-
-    counter[:kind] = 'weighted' if params[:counterFormData][:weighted]
-    counter[:kind] = 'timed' if params[:counterFormData][:timed]
-
-    if counter.save
+    counter = Counter.create(counter_params)
+    if counter.persisted?
       render json: Counter.all
     else
       # alert('Counter could not be saved. Perhaps it already exists?')
@@ -21,7 +17,7 @@ class API::V1::CountersController < ApplicationController
   private
 
   def counter_params
-    params.require(:counterFormData).permit(:name, :weighted, :timed, :kind)
+    params.require(:counter).permit(:name, :kind, :measurement_unit)
   end
 
 end
