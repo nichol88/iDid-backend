@@ -9,7 +9,16 @@ class Action < ApplicationRecord
 
   scope :recent, -> {Action.order('created_at DESC limit 10')}
 
-  
+  def self.since(datetime)
+    Action.where('created_at >= ? ', datetime)
+  end
 
+  def since(datetime)
+    Action.where('user_id = ? AND created_at >= ? ', self.user.id, datetime)
+  end
+
+  def self.total_reps(actions)
+    actions.sum(:reps)
+  end
 
 end
