@@ -21,6 +21,16 @@ class API::V1::UsersController < ApplicationController
     end
   end
 
+  def leaders(start_time = nil)
+
+    if start_time
+      # get all time leaders
+    else
+      # start at start_time
+    end
+
+  end
+
   private
 
   def user_params
