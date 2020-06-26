@@ -1,5 +1,5 @@
 class Counter < ApplicationRecord
-  include ActiveModel::Serialization
+  # include ActiveModel::Serialization
 
   has_many :actions
 

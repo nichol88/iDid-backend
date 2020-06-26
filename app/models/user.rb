@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  include ActiveModel::Serialization
+  # include ActiveModel::Serialization
 
   has_secure_password
   has_many :actions
