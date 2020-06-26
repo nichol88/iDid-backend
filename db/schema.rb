@@ -10,36 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_11_045139) do
+ActiveRecord::Schema.define(version: 2020_06_26_040624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "actions", force: :cascade do |t|
     t.integer "counter_id"
-    t.integer "routine_id"
     t.integer "user_id"
     t.integer "reps"
     t.float "weight"
-    t.string "weight_unit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
-    t.string "time_unit"
   end
 
   create_table "counters", force: :cascade do |t|
     t.string "name"
     t.string "kind"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.string "measurement_unit"
-  end
-
-  create_table "routines", force: :cascade do |t|
-    t.string "name"
-    t.string "kind"
-    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -49,9 +37,9 @@ ActiveRecord::Schema.define(version: 2020_06_11_045139) do
     t.string "lname"
     t.string "email"
     t.string "password_digest"
+    t.string "time_zone", default: "UTC"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "time_zone", default: "UTC"
   end
 
 end
