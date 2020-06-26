@@ -20,7 +20,7 @@ Rails.application.routes.draw do
         resources :actions
       end
 
-      get 'leaders' => 'actions#leaders'
+      get 'leaders' => 'counters#leaders'
 
     end
   end
