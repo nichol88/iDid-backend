@@ -7,8 +7,6 @@ class Action < ApplicationRecord
   scope :week, -> {Action.where('created_at >= ?', 1.week.ago)}
   scope :month, -> {Action.where('created_at >= ?', 1.month.ago)}
 
-
-  # /models/action.rb
   scope :total_reps, -> {sum(:reps)}
   scope :recent, -> {Action.order('created_at DESC limit 10')}
 
@@ -19,9 +17,5 @@ class Action < ApplicationRecord
   def since(datetime)
     Action.where('user_id = ? AND created_at >= ? ', self.user.id, datetime)
   end
-
-  # def self.total_reps(actions)
-  #   actions.sum(:reps)
-  # end
 
 end
