@@ -17,7 +17,7 @@ class Counter < ApplicationRecord
     # result will be an array of hashes, e.g. [{user, reps}...]
     result = unique_users.map do |user_id|
       user = User.find(user_id)
-      reps = user.actions.since(datetime).total_reps
+      reps = user.counter_actions(self.id).since(datetime).sum(:reps)
       {user: {id: user.id, name: user.name}, reps: reps}
     end
 

@@ -39,9 +39,17 @@ class User < ApplicationRecord
 
   end
 
+  # /models/user.rb
+
+  def counter_actions(counter_id)
+    self.actions.where("counter_id = ?", counter_id)
+  end
+
   def name
     "#{fname} #{lname}"
   end
+
+
 
 
 end
