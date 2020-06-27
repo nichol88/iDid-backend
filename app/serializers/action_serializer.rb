@@ -8,14 +8,16 @@ class ActionSerializer < ActiveModel::Serializer
 
   def counter
     {name: object.counter.name,
-      kind: object.counter.kind}
+      kind: object.counter.kind,
+      unit: object.counter.measurement_unit
+    }
   end
 
   attribute :weight, if: :is_weighted?
-  attribute :weight_unit, if: :is_weighted?
+  # attribute :weight_unit, if: :is_weighted?
 
   # attribute :time_duration, if: :is_timed?
-  attribute :time_unit, if: :is_timed?
+  # attribute :time_unit, if: :is_timed?
 
   def is_timed?
     object.counter.kind == 'timed' ? true : false
