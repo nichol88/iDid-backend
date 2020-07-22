@@ -26,7 +26,7 @@ class Counter < ApplicationRecord
     leader = result.max_by { |obj| obj[:reps] }
 
     # returns {user_id, name, reps, counter}
-    leader[:counter] = self.name
+    leader[:counter_name] = self.name
     leader[:name] = User.find(leader[:user_id]).fname
 
     leader
