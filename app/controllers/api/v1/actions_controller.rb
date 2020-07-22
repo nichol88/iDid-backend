@@ -22,7 +22,18 @@ class API::V1::ActionsController < ApplicationController
   end
 
   def leaders
-    render json: User.top_all_time
+    if params[:q]
+      if params[:q] == 'month'
+        # get leaders from last month
+        render json: Counter.all.map {|counter| counter.leader(1.month.ago)}
+      elsif params[:q] == 'week'
+        render json: Counter.all.map {|counter| counter.leader(1.week.ago)}
+      else
+        render json: {server_message: 'invalid time range'}
+      end
+    else
+      render json: Counter.all.map {|counter| counter.leader(DateTime.new(2020))}
+    end
   end
 
   private

@@ -11,6 +11,7 @@ class Counter < ApplicationRecord
   # returns hash with leader (user) and total reps
   def leader(datetime = DateTime.parse('1/1/2020'))
     # get unique users having actions for this counter
+<<<<<<< HEAD
     unique_users = self.actions.since(datetime).pluck(:user_id).uniq
 
     # get total_reps in this time frame for each unique user
@@ -28,6 +29,26 @@ class Counter < ApplicationRecord
     result ? result : {error: "No data for selected time range"}
 
     # returns e.g. {:user=>{:id=>1, :name=>"Scooby Doo"}, :reps=>30}
+=======
+    unique_users = actions.pluck(:user_id).uniq
+
+    # get sum of reps for each user within action set
+    # result will be an array of hashes, e.g. [{user_id, reps}...]
+    result = []
+    unique_users.each do |id|
+      reps = actions.where('user_id = ?', id).sum(:reps)
+      result.push({user_id: id, reps: reps})
+    end
+
+    # return the hash with most reps
+    leader = result.max_by { |obj| obj[:reps] }
+
+    # returns {user_id, name, reps, counter}
+    leader[:counter] = self.name
+    leader[:name] = User.find(leader[:user_id]).fname
+
+    leader
+>>>>>>> wip
   end
 
 
