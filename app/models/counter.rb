@@ -21,9 +21,13 @@ class Counter < ApplicationRecord
     end
 
     # return the hash with most reps
-    result.max_by { |obj| obj[:reps] }
+    leader = result.max_by { |obj| obj[:reps] }
 
-    # returns {user_id, reps}
+    # returns {user_id, name, reps, counter}
+    leader[:counter] = self.name
+    leader[:name] = User.find(leader[:user_id]).fname
+
+    leader
   end
 
 
