@@ -9,23 +9,6 @@ class User < ApplicationRecord
   validates :lname, presence: true
 
   # returns each counter's rep leader, all-time
-<<<<<<< HEAD
-  def self.top_all_time
-    records = ActiveRecord::Base.connection.execute('
-      SELECT SUM(reps), counter_id, user_id
-      FROM actions
-      INNER JOIN counters ON counters.id = counter_id
-      INNER JOIN users ON users.id = user_id
-      GROUP BY user_id, counter_id;
-      ')
-
-    records.to_a.map { |record|
-      record[:allTimeLeader] = User.find_by(id: record['user_id']).fname
-      record[:counter_name] = Counter.find_by(id: record['counter_id']).name
-      record
-    }
-  end
-=======
   # def self.top_all_time
   #   records = ActiveRecord::Base.connection.execute('SELECT SUM(reps), counter_id, user_id
   #     FROM actions
@@ -39,7 +22,6 @@ class User < ApplicationRecord
   #     record
   #   }
   # end
->>>>>>> wip
 
   def self.leaders_since(datetime)
     # get unique counters for this time frame
