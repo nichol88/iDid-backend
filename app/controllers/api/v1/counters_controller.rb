@@ -35,7 +35,7 @@ class API::V1::CountersController < ApplicationController
     else
       # if no query was provided, return all-time leaders
       render json: Counter.all.map{ |counter|
-        {counter: counter.name}.merge(counter.leader)
+        counter.leader
       }
     end
   end
