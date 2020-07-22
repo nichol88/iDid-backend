@@ -22,11 +22,11 @@ class API::V1::CountersController < ApplicationController
       # check which was provided,
       if params[:q] == 'week'
         render json: Counter.all.map{ |counter|
-          {counter: counter.name}.merge(counter.leader(1.week.ago))
+          counter.leader(1.week.ago)
         }
       elsif params[:q] == 'month'
         render json: Counter.all.map{ |counter|
-          {counter: counter.name}.merge(counter.leader(1.month.ago))
+          counter.leader(1.month.ago)
         }
         # or return an error if it's invalid
       else
