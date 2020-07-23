@@ -12,7 +12,7 @@ class Counter < ApplicationRecord
   def leader(datetime)
     # puts "leader(datetime)"
     # filter actions in this time range
-    actions_in_range = Action.since(datetime)
+    actions_in_range = self.actions.since(datetime)
     # puts "actions in range: #{actions_in_range.length}"
 
     # get unique users having actions for this counter
