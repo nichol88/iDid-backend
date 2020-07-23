@@ -8,29 +8,47 @@ class Counter < ApplicationRecord
 
   # /models/counter.rb
 
-  # returns hash with leader (user) and total reps
-  def leader(datetime = DateTime.parse('1/1/2020'))
+  # returns user with most reps for this counter
+  def leader(datetime)
+    # puts "leader(datetime)"
+    # filter actions in this time range
+    actions_in_range = Action.since(datetime)
+    # puts "actions in range: #{actions_in_range.length}"
+
     # get unique users having actions for this counter
+    unique_users = actions_in_range.pluck(:user_id).uniq
+    # puts "unique users: #{unique_users}"
 
-    unique_users = actions.pluck(:user_id).uniq
+    leader = ''
+    # for each unique user having performed actions in this time range for this counter
+    # puts "finding total reps for each user"
+    # binding.pry
+    result = unique_users.inject(0){ |memo, user_id|
+      # puts "memo: #{memo}, user_id: #{user_id}"
+      # get those actions
+      acs = actions_in_range.where('user_id = ?', user_id)
+      # puts "user's actions in this range: #{acs.length}"
+      # sum the reps
+      reps = acs.sum(:reps)
+      # puts "total reps: #{reps}"
 
-    # get sum of reps for each user within action set
-    # result will be an array of hashes, e.g. [{user_id, reps}...]
-    result = []
-    unique_users.each do |id|
-      reps = actions.where('user_id = ?', id).sum(:reps)
-      result.push({user_id: id, reps: reps})
-    end
+      if reps > memo
+        # puts "new max reps, saving to memo"
+        leader = User.find_by(id: user_id).name
+        # puts "new leader: #{leader}"
+        reps
+      else
+        memo
+      end
+    }
+    # puts "leader for #{self.name}: #{leader}, reps: #{result}"
+    {counter_name: self.name, name: leader, reps: result}
+  end
 
-    # return the hash with most reps
-    leader = result.max_by { |obj| obj[:reps] }
-
-    # returns {user_id, name, reps, counter}
-    if leader && leader != []
-      leader[:counter_name] = self.name
-      leader[:name] = User.find(leader[:user_id]).fname
-    end
-    leader
+  def self.leaders(datetime)
+    Counter.all.map{ |counter|
+      counter.leader(datetime)
+    }
   end
 
 

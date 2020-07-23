@@ -17,26 +17,16 @@ class API::V1::CountersController < ApplicationController
   # /controllers/counters_controller.rb
 
   def leaders
-    # if a time range query is provided:
     if params[:q]
-      # check which was provided,
-      if params[:q] == 'week'
-        render json: Counter.all.map{ |counter|
-          counter.leader(1.week.ago)
-        }
-      elsif params[:q] == 'month'
-        render json: Counter.all.map{ |counter|
-          counter.leader(1.month.ago)
-        }
-        # or return an error if it's invalid
+      if params[:q] == 'month'
+        render json: Counter.leaders(1.month.ago)
+      elsif params[:q] == 'week'
+        render json: Counter.leaders(1.week.ago)
       else
-        render json: {error: "Invalid time range"}
+        render json: {server_message: 'invalid time range'}
       end
-    else
-      # if no query was provided, return all-time leaders
-      render json: Counter.all.map{ |counter|
-        counter.leader
-      }
+    else # render all leaders
+      render json: Counter.leaders(DateTime.new(2020))
     end
   end
 
