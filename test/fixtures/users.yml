@@ -1,0 +1,19 @@
+    # USER SCHEMA
+    # -----------------
+    # t.string "fname"
+    # t.string "lname"
+    # t.string "email"
+    # t.string "password_digest"
+    # t.datetime "created_at", precision: 6, null: false
+    # t.datetime "updated_at", precision: 6, null: false
+    # t.string "time_zone", default: "UTC"
+    # -----------------
+
+    joseph:
+      fname: "Joseph"
+      lname: "Joestar"
+      email: "jojo1@test.com"
+    jonathan:
+      fname: "Jonathan"
+      lname: "Joestar"
+      email: "jojo2@test.com"
