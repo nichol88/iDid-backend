@@ -16,9 +16,9 @@ class API::V1::SessionsController < ApplicationController
   def login
     params[:session][:email] = params[:session][:email].downcase
     user = User.find_by(email: params[:session][:email])
-    if user && user.authenticate(params[:session][:password])
+    if user && user.valid_password?(params[:session][:password])
       session[:user_id] = user.id
-      render json: user, except: :password_digest
+      render json: user
     else
       render json: {server_message: 'Incorrect email/password combination!'}
     end

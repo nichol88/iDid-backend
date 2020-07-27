@@ -1,6 +1,13 @@
 class API::V1::UsersController < ApplicationController
 
-  before_action :redirect_if_not_logged_in, except: :create
+  # before_action :redirect_if_not_logged_in, except: :create
+
+  # def index
+  #   byebug
+  #   if params[:confirmation]
+  #
+  #   end
+  # end
 
   def show
     user = User.find_by(id: params[:id])
