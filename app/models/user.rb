@@ -30,7 +30,7 @@ class User < ApplicationRecord
   end
 
   def name
-    "#{fname} #{lname}"
+    "#{fname} #{lname.charAt(0)}"
   end
 
 end
