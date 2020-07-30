@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::API
   include ::ActionController::Cookies
 
+  before_action :set_cookie_samesite_none
+
   def current_user
     User.find_by(id: session[:user_id])
   end
@@ -19,5 +21,10 @@ class ApplicationController < ActionController::API
       }
       puts 'Not logged in!'
     end
+  end
+
+  def set_cookie_samesite_none
+    response.headers['Set-Cookie'] = 'Secure;'
+    response.headers['Set-Cookie'] = 'SameSite=None'
   end
 end
