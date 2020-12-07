@@ -7,8 +7,11 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'https://idid.netlify.app'
+    # puts "React App URL: #{ENV['REACT_APP_URL']}"
+    origins ["#{ENV['REACT_APP_URL']}", 'http://localhost:19006'] # , additional args; can use regex
+    # origins 'https://idid.netlify.app'
     # origins 'http://localhost:3000' # for local
+    
 
     resource '*',
       headers: :any,

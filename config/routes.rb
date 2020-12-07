@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   post 'api/v1/login' => 'api/v1/sessions#login'
   get 'api/v1/current_user' => 'api/v1/sessions#get_current_user'
   delete 'api/v1/logout' => 'api/v1/sessions#destroy'
@@ -10,7 +9,10 @@ Rails.application.routes.draw do
 
   get '/api/v1/users/:id/actions' => 'api/v1/actions#index'
 
-  devise_for :users, controllers: {confirmations: 'users/confirmations'}
+  devise_for :users, controllers: {
+    confirmations: 'users/confirmations',
+    sessions: 'api/v1/sessions'
+  }, defaults: { format: :json }
 
   namespace :api do
     namespace :v1 do
