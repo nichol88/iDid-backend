@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
-  include ::ActionController::Cookies
-  before_action :set_cookie_samesite_none
+  # include ::ActionController::Cookies
+  # before_action :set_cookie_samesite_none
   respond_to :json
 
   def current_user
@@ -14,5 +14,9 @@ class ApplicationController < ActionController::API
   def set_cookie_samesite_none
     response.headers['Set-Cookie'] = 'Secure;'
     response.headers['Set-Cookie'] = 'SameSite=None'
+  end
+
+  def status
+    render json: 'Accepting requests'
   end
 end

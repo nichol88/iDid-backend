@@ -1,5 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  # Rails.application.routes.default_url_options[:host] = '10.0.0.5'
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development

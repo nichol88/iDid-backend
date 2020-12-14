@@ -2,6 +2,7 @@ class API::V1::SessionsController < ApplicationController
   before_action :set_user, only: :login
 
   def login
+    # binding.pry
     if @user.valid_password?( session_params[:password] )
       # session[:user_id] = @user.id
       render json: @user, status: 200
@@ -22,13 +23,15 @@ class API::V1::SessionsController < ApplicationController
   private
 
   def session_params
-    params.permit(:email, :password)
+    params.require(:session).permit(:email, :password)
   end
 
   def set_user
+    # binding.pry
     begin
       @user = User.find_by! email: params[:email]
     rescue ActiveRecord::RecordNotFound => e
+      # binding.pry
       render json: {errors: [message: e.message]}, status: 404
     end
   end
